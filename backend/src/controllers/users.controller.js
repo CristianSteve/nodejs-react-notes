@@ -22,6 +22,13 @@ usersCtrl.createUsers = async (req, res) => {
     }
 };
 
+usersCtrl.deleteUser = async (req, res) => {
+    const idUser = req.params.id;
+    if(idUser != null)
+        await userModel.deleteOne({_id : req.params.id});
+        res.json({message : 'delete ok'});
+}
+
 usersCtrl.updateUsers = (req,res) => res.json({message : 'update'});
  
 
