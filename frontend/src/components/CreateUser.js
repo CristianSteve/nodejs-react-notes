@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Boton from '../component/button';
 import axios from 'axios';
 
 export default class CreateUser extends Component {
@@ -7,7 +8,9 @@ export default class CreateUser extends Component {
         users: [],
         username: '',
         name: '',
-        lastname: ''
+        lastname: '',
+        formOption : 'Save',
+        formTitle : 'Crear Usuario'
     }
 
     async componentDidMount() {
@@ -54,9 +57,7 @@ export default class CreateUser extends Component {
             lastname: this.state.lastname
         }
         )
-        this.setState({ username: '' });
-        this.setState({ name: '' });
-        this.setState({ lastname: '' });
+        this.setState({ username: '',name : '', lastname : '' });
         this.getUsers();
 
     }
@@ -66,7 +67,7 @@ export default class CreateUser extends Component {
             <div className="row">
                 <div className="col md-4">
                     <div className="card card-body">
-                        <h3>Create New User</h3>
+                        <h3>{this.state.formTitle}</h3>
                         <form onSubmit={this.onSubmit}>
                             <div className="form-group">
                                 <label>Username</label>
@@ -92,9 +93,7 @@ export default class CreateUser extends Component {
                                     onChange={this.onChangeLastName}
                                 />
                             </div>
-                            <button className="btn btn-primary">
-                                Save
-                            </button>
+                            <Boton value="Save" classAdd="btn btn-primary col-md"/>
                         </form>
                     </div>
                 </div>
@@ -109,6 +108,7 @@ export default class CreateUser extends Component {
                                         this.onChangeUserName(user.username)
                                         this.onChangeName(user.name)
                                         this.onChangeLastName(user.lastname)
+                                        this.setState({formOption : 'Edit', formTitle : 'Editar Usuario'})
                                     }}
                                 >
                                     {user.username}</li>
